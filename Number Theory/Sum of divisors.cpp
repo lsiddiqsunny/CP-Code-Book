@@ -1,11 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define MOD 1e9 + 7
+int MOD= 1e9 + 7;
 
 typedef pair<int, int> pii;
 #define x first
 #define y second
 vector<int>primes;// pre-calculated prime
+long long bigmod(long long a, long long p, long long m) 
+{
+    long long res = 1;
+    long long x = a;
+    while (p)
+    {
+        if (p & 1) //p is odd
+        {
+            res = (res * x) % m;
+        }
+        x = (x * x) % m;
+        p = p >> 1;
+    }
+    return res;
+}
 pii extendedEuclid(int a, int b)
 { // returns x, y | ax + by = gcd(a,b)
     if (b == 0)
@@ -47,8 +62,8 @@ int sod(long long int n)
     }
     if (n > 1)
     {
-        long long x = bigmod(n, 1);
-        long long y = modularInverse(n - 1);
+        long long x = bigmod(n, 1,MOD);
+        long long y = modularInverse(n - 1,MOD);
         nowsum = (((x - 1 + MOD) % MOD) * (y % MOD)) % MOD;
         sum = ((sum % MOD) * (nowsum % MOD)) % MOD;
     }
